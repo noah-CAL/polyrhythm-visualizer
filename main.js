@@ -10,7 +10,7 @@ document.querySelector("#submit_button").addEventListener("click", e => {
     console.log(`Pulse: ${pulse}, Counterpulse: ${counterpulse}`)
     clearGrid()
     visualize(pulse, counterpulse)
-    startPolyrhythm()
+    startPolyrhythm(pulse, counterpulse)
 })
 
 function visualize(pulse, counterpulse) {
@@ -70,13 +70,15 @@ function colorGrid(counterpulse) {
 }
 
 /** Starts the polyrhythm count that cycles at BMP beats per minute */
-function startPolyrhythm(pulse, counterpulse) {
+async function startPolyrhythm(pulse, counterpulse) {
     let bpm = getBPM()
-    setTimeout(() => (console.log("H")), BPMtoBPMS(bpm))
+    let boxCounter = 0
+    await colorBox(pulse, counterpulse, boxCounter, bpm)
 }
 
-function logH() {
-    console.log("h")
+/** Apply the .beat class to the box at index BOXCOUNTER */
+async function colorBox(pulse, counterpulse, boxCounter, bpm) {
+    setTimeout(() => (console.log("hi")), BPMtoBPMS(bpm))
 }
 
 /** Fetches the BPM from the DOM */
