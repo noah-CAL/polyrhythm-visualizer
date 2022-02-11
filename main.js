@@ -1,29 +1,36 @@
-// visualize()
-document.querySelector("#submit_button").addEventListener("click", e => (
-    visualize()
-))
+/**
+ * Controls the visualizations for the polyrhythms. PULSE is defined as the underlying beat (every 2nd beat in a 3:2),
+ * while COUNTERPULSE is the secondary beat (every 3rd beat in a 3:2). PULSE <= COUNTERPULSE
+ */
 
-function visualize() {
-    const [subdiv, pulse] = collectInputs()
-    console.log(`Pulse: ${pulse}, Subdivision: ${subdiv}`)
-    createGrid(subdiv, pulse)
-    colorGrid(subdiv, pulse)
+// Uncomment the following to test CSS
+// visualize()
+document.querySelector("#submit_button").addEventListener("click", e => {
+    const [counterpulse, pulse] = collectInputs()
+    console.log(`Pulse: ${pulse}, Counterpulse: ${counterpulse}`)
+    clearGrid()
+    visualize(pulse, counterpulse)
+})
+
+function visualize(pulse, counterpulse) {
+    createGrid(pulse, counterpulse)
+    colorGrid(counterpulse)
 }
 
-/** Returns a list with two INTEGER values, where arr[0] is the SUBDIVISION and arr[1] is the PULSE.
- * PULSE is defined as having the larger subdivision between BEAT and PULSE inputs
- * such that PULSE hits on every beat 1 while SUBDIVISION hits in between
+/** Returns a list with two INTEGER values, where arr[0] is the COUNTERPULSE and arr[1] is the PULSE.
+ * PULSE is defined as having the smaller value i.e. PULSE hits on 
+ * every beat 1 while SUBDIVISION hits on the offbeats
  */
 function collectInputs() {
     const inputs = document.querySelectorAll("#form input")
-    let pulse = parseInt(inputs[0].value)
-    let subdiv = parseInt(inputs[1].value)
-    if (subdiv > pulse) {
-        const temp = subdiv
-        subdiv = pulse
+    let counterpulse = parseInt(inputs[0].value)
+    let pulse = parseInt(inputs[1].value)
+    if (counterpulse < pulse) {
+        const temp = counterpulse
+        counterpulse = pulse
         pulse = temp
     }
-    return [subdiv, pulse]
+    return [counterpulse, pulse]
 }
 
 /** Creates a WIDTH x HEIGHT grid of div.box elements. Returns VOID */
@@ -52,10 +59,10 @@ function clearGrid() {
 }
 
 /** Adds the CSS class SUBDIV to every .box that lands on a subdiv */
-function colorGrid(subdiv, pulse) {
+function colorGrid(counterpulse) {
     let beat = 0;
     document.querySelectorAll(".box").forEach(box => {
-        if (beat == pulse) {
+        if (beat == counterpulse) {
             box.classList.add("subdiv")
             beat = 0
         }
