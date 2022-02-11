@@ -3,7 +3,7 @@
  * while COUNTERPULSE is the secondary beat (every 3rd beat in a 3:2). PULSE <= COUNTERPULSE
  */
 
-// Uncomment the following to test CSS
+// Uncomment the following to easily test CSS
 // visualize()
 document.querySelector("#submit_button").addEventListener("click", e => {
     const [counterpulse, pulse] = collectInputs()
