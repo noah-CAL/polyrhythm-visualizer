@@ -1,4 +1,4 @@
-visualize()
+// visualize()
 document.querySelector("#submit_button").addEventListener("click", e => (
     visualize()
 ))
@@ -7,6 +7,7 @@ function visualize() {
     const [subdiv, pulse] = collectInputs()
     console.log(`Pulse: ${pulse}, Subdivision: ${subdiv}`)
     createGrid(subdiv, pulse)
+    colorGrid(subdiv, pulse)
 }
 
 /** Returns a list with two INTEGER values, where arr[0] is the SUBDIVISION and arr[1] is the PULSE.
@@ -18,7 +19,7 @@ function collectInputs() {
     let pulse = parseInt(inputs[0].value)
     let subdiv = parseInt(inputs[1].value)
     if (subdiv > pulse) {
-        const temp = beat
+        const temp = subdiv
         subdiv = pulse
         pulse = temp
     }
@@ -48,4 +49,17 @@ function createGrid(width, height) {
 function clearGrid() {
     // FIXME
     return
+}
+
+/** Adds the CSS class SUBDIV to every .box that lands on a subdiv */
+function colorGrid(subdiv, pulse) {
+    let beat = 0;
+    document.querySelectorAll(".box").forEach(box => {
+        if (beat == pulse) {
+            box.classList.add("subdiv")
+            beat = 0
+        }
+        beat += 1
+        console.log(box, beat)
+    })
 }
