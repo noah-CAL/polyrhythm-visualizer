@@ -36,9 +36,6 @@ function collectInputs() {
 /** Creates a WIDTH x HEIGHT grid of div.box elements. Returns VOID */
 function createGrid(width, height) {
     const grid = document.querySelector(".grid")
-    if (grid.children.length > 0) {
-        clearGrid()
-    } 
     for (let i = 0; i < height; i += 1) {
         const row = document.createElement("div")
         row.classList.add("row")
@@ -54,8 +51,8 @@ function createGrid(width, height) {
 
 /** Clears every row from GRID. Returns VOID */
 function clearGrid() {
-    // FIXME
-    return
+    const grid = document.querySelector(".grid")
+    grid.innerHTML = ''
 }
 
 /** Adds the CSS class SUBDIV to every .box that lands on a subdiv */
