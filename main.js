@@ -1,32 +1,36 @@
+visualize()
 document.querySelector("#submit_button").addEventListener("click", e => (
     visualize()
 ))
 
 function visualize() {
-    const [beat, pulse] = collectInputs()
-    console.log(`Beat: ${beat}, Pulse: ${pulse}`)
-    createGrid(beat, pulse)
+    const [subdiv, pulse] = collectInputs()
+    console.log(`Pulse: ${pulse}, Subdivision: ${subdiv}`)
+    createGrid(subdiv, pulse)
 }
 
-/** Returns a list with two INTEGER values, where arr[0] is the BEAT and arr[1] is the PULSE.
+/** Returns a list with two INTEGER values, where arr[0] is the SUBDIVISION and arr[1] is the PULSE.
  * PULSE is defined as having the larger subdivision between BEAT and PULSE inputs
- * such that PULSE hits on every beat 1 while BEAT hits in between
+ * such that PULSE hits on every beat 1 while SUBDIVISION hits in between
  */
 function collectInputs() {
     const inputs = document.querySelectorAll("#form input")
-    let beat = parseInt(inputs[0].value)
-    let pulse = parseInt(inputs[1].value)
-    if (beat > pulse) {
+    let pulse = parseInt(inputs[0].value)
+    let subdiv = parseInt(inputs[1].value)
+    if (subdiv > pulse) {
         const temp = beat
-        beat = pulse
+        subdiv = pulse
         pulse = temp
     }
-    return [beat, pulse]
+    return [subdiv, pulse]
 }
 
-/** Creates a WIDTH x HEIGHT grid of div.box elements */
+/** Creates a WIDTH x HEIGHT grid of div.box elements. Returns VOID */
 function createGrid(width, height) {
     const grid = document.querySelector(".grid")
+    if (grid.children.length > 0) {
+        clearGrid()
+    } 
     for (let i = 0; i < height; i += 1) {
         const row = document.createElement("div")
         row.classList.add("row")
@@ -38,4 +42,10 @@ function createGrid(width, height) {
         }
         grid.appendChild(row)
     }
+}
+
+/** Clears every row from GRID. Returns VOID */
+function clearGrid() {
+    // FIXME
+    return
 }
