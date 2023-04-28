@@ -20,7 +20,7 @@
 }
 
 .box:first-of-type {
-    background: orange;
+    background-color: coral;
 }
 
 @keyframes fadein {
