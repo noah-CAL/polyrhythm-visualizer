@@ -23,6 +23,10 @@
     background-color: coral;
 }
 
+.row:first-of-type .box:first-of-type {
+    background-color: firebrick;
+}
+
 @keyframes fadein {
    from {
        opacity: 0;
