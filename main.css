@@ -19,6 +19,10 @@
     animation-timing-function: ease-in;
 }
 
+.box:first-of-type {
+    background: orange;
+}
+
 @keyframes fadein {
    from {
        opacity: 0;
